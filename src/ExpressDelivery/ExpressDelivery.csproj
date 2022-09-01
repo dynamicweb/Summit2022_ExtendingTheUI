@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+        <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+	    <EmbeddedResource Include="wwwroot/**/*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Dynamicweb.Application.UI" Version="10.0.0-Alpha002" />
+		<PackageReference Include="Dynamicweb.CoreUI.Rendering" Version="10.0.0-Alpha001" />
+        <PackageReference Include="Dynamicweb.Ecommerce.UI" Version="10.0.0-Alpha001" />
+        <PackageReference Include="Dynamicweb.Updates" Version="1.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.8" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.6" />
+    </ItemGroup>
+
+</Project>
