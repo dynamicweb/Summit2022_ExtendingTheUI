@@ -6,7 +6,7 @@ namespace ExpressDelivery.Components
     {
         public string Header { get; set; } = "";
         public int ShippingLimit { get; set; }
-        public int ElapsedHours { get; set; }
         public string ShippingComment { get; set; } = "";
+        public TimeSpan RemainingTime { get; internal set; }
     }
 }

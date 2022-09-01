@@ -12,16 +12,16 @@ namespace ExpressDelivery.Screens
             if (Model.Order is null || Model.DeliveryPreset is null)
                 return null;
 
-            var elapsedHours = DateTime.Now.Subtract(Model.Order.CompletedDate ?? DateTime.Now).TotalHours;
-            var elapsedFraction = (elapsedHours / Model.DeliveryPreset.TimeLimitInHours);
+            var spanBetween = DateTime.Now.Subtract(Model.Order.CompletedDate ?? DateTime.Now);
+            var elapsedFraction = (spanBetween.TotalHours / Model.DeliveryPreset.TimeLimitInHours);
             var text = elapsedFraction < 0.5 ? Model.DeliveryPreset.UnderHalfWayText : elapsedFraction > 1 ? Model.DeliveryPreset.TooLateText : Model.DeliveryPreset.OverHalfWayText;
 
             return new ExpressDeliveryWidget()
             {
                 Header = $"Express delivery - {Model.DeliveryPreset.Name}",
-                ElapsedHours = (int)Math.Floor(elapsedHours),
                 ShippingComment = text ?? "",
-                ShippingLimit = Model.DeliveryPreset.TimeLimitInHours
+                ShippingLimit = Model.DeliveryPreset.TimeLimitInHours,
+                RemainingTime = TimeSpan.FromHours(Model.DeliveryPreset.TimeLimitInHours) - spanBetween
             };
         }
     }

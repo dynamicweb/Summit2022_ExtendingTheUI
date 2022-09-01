@@ -1,24 +1,28 @@
 ﻿@using Dynamicweb.CoreUI.Rendering;
 @model ExpressDelivery.Components.ExpressDeliveryWidget
 
-<express-delivery-widget class="h-100" style="border: var(--dw-border);border-radius: 0.5rem;">
-    <div class="info-card-header">
-        <div class="flex-fill">
-            <h6 class="dw-group-header">@Model.Header</h6>
-        </div>
-    </div>
-
-    <div class="widget-content d-flex justify-content-center">
-        <div class="list-widget flex-nowrap flex-column w-75">
-            <div class="flex-row m-3">
-                @await Component.RenderDynamicwebUiComponent(new Dynamicweb.CoreUI.Displays.Widgets.ProgressWidget(Model.ElapsedHours){ProgressType = Dynamicweb.CoreUI.Displays.Widgets.ProgressWidgetType.Bar, HideSummary = true, OutOf = Model.ShippingLimit})
-                <span>Hours remaining until shipment: @(Model.ShippingLimit - Model.ElapsedHours)</span>
-            </div>
-            <div class="flex-row">
-                <h3 style="text-align:center">@Model.ShippingComment</h3>
+<div>
+    <script src="/ExpressDelivery/js/ExpressDeliveryWidget.js" type="module"></script>
+    <express-delivery-widget class="h-100" style="border: var(--dw-border);border-radius: 0.5rem;">
+        <div class="info-card-header">
+            <div class="flex-fill">
+                <h6 class="dw-group-header">@Model.Header</h6>
             </div>
         </div>
-    </div>
-</express-delivery-widget>
 
-<script src="/ExpressDelivery/js/ExpressDeliveryWidget.js" type="module"></script>
+        <div class="widget-content d-flex justify-content-center">
+            <div class="list-widget flex-nowrap flex-column w-75">
+                @if (Model.RemainingTime > TimeSpan.Zero)
+                {
+                    <div class="flex-row m-3">
+                        @await Component.RenderDynamicwebUiComponent(new Dynamicweb.CoreUI.Displays.Widgets.ProgressWidget((int)Math.Floor(Model.RemainingTime.TotalHours)){ProgressType = Dynamicweb.CoreUI.Displays.Widgets.ProgressWidgetType.Bar, HideSummary = true, OutOf = Model.ShippingLimit})
+                        <span>Hours remaining until shipment: @Model.RemainingTime.ToString("d' days 'hh' hours 'mm' minutes 'ss' seconds'") </span>
+                    </div>
+                }
+                <div class="flex-row">
+                    <h3 style="text-align:center">@Model.ShippingComment</h3>
+                </div>
+            </div>
+        </div>
+    </express-delivery-widget>
+</div>

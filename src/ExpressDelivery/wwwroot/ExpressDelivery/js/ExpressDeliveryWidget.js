@@ -4,13 +4,16 @@
     }
 
     connectedCallback() {
-        this.timeoutHandle = setTimeout(() => {
-            Actions.navigateUrl(this.dataset.dwCurrentlyLoaded, this, true);
+        this.timeoutHandle = setInterval(() => {
+            const target = this.parentElement;
+            const url = target.dataset.dwCurrentlyLoaded;
+            if (url)
+                Actions.NavigateUrl(target.dataset.dwCurrentlyLoaded, target, true, true);
         }, 1000)
     }
 
     disconnectedCallback() {
-        clearTimeout(this.timeoutHandle);
+        clearInterval(this.timeoutHandle);
     }
 }
 
