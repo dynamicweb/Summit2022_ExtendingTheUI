@@ -14,7 +14,7 @@ namespace ExpressDelivery.Screens
 
             var spanBetween = DateTime.Now.Subtract(Model.Order.CompletedDate ?? DateTime.Now);
             var elapsedFraction = (spanBetween.TotalHours / Model.DeliveryPreset.TimeLimitInHours);
-            var text = elapsedFraction < 0.5 ? Model.DeliveryPreset.UnderHalfWayText : elapsedFraction > 1 ? Model.DeliveryPreset.TooLateText : Model.DeliveryPreset.OverHalfWayText;
+            var text = elapsedFraction < 0.5 ? Model.DeliveryPreset.OverHalfWayText : elapsedFraction > 1 ? Model.DeliveryPreset.TooLateText : Model.DeliveryPreset.UnderHalfWayText;
 
             return new ExpressDeliveryWidget()
             {
